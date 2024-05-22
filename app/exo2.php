@@ -117,9 +117,19 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
                 <ul>
                     <?php
                     shuffle($fruits);
-                    foreach($fruits as $fruit){
+                    foreach ($fruits as $fruit) {
                         echo "<li>" . $fruit . "</li>";
                     }
+
+                    // $randomFruits = [];
+                    
+                    // while (count($fruits) > 0) {
+                    //     $index = array_rand($fruits);
+                    //     $randomFruits[] = $fruits[$index];
+                    //     unset($fruits[$index]);
+                    // }
+                    
+                    // var_dump($randomFruits);
                     ?>
                 </ul>
             </div>
@@ -131,7 +141,15 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
             <p class="exercice-txt">Afficher les fruits dont la chaîne de caractère est composée de 5 caractères au
                 maximum</p>
             <div class="exercice-sandbox">
-
+                <ul>
+                    <?php
+                    foreach ($fruits as $fruit) {
+                        if (mb_strlen($fruit) <= 5) {
+                            echo "<li>{$fruit}</li>";
+                        }
+                    }
+                    ?>
+                </ul>
             </div>
         </section>
 
@@ -144,7 +162,11 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
             <p class="exercice-txt">Dans la phrase suivante : "<?= $breakfast ?>"</p>
             <p class="exercice-txt">Remplacez pomme par pêche et banane par mangue et affichez-la.</p>
             <div class="exercice-sandbox">
+                <?php
+                $breakfast = str_replace(['pomme', 'banane'], ['pêche', 'mangue'], $breakfast);
+                echo $breakfast;
 
+                ?>
             </div>
         </section>
 
@@ -154,7 +176,11 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
             <p class="exercice-txt">Affichez la chaîne de caractère composée de l'ensemble des fruits de la liste,
                 séparés par une virgule et un espace.</p>
             <div class="exercice-sandbox">
-
+                <?php
+                echo ucfirst(implode(", ", $fruits) . ".");
+                //ucfirst demarre la premier lettre en majuscule.-implode — 
+                //Rassemble les éléments d'un tableau en une chaîne 
+                ?>
             </div>
         </section>
 
@@ -169,7 +195,15 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
             <p class="exercice-txt">Afficher dans une liste HTML tous les fruits de la liste qui apparaissent dans la
                 phrase suivante : "<?= $salad ?>"</p>
             <div class="exercice-sandbox">
-
+                <ul>
+                    <?php
+                    foreach ($fruits as $fruit) {
+                        if (str_contains($salad, $fruit)) {
+                            echo "<li>$fruit</li>";
+                        }
+                    }
+                    ?>
+                </ul>
             </div>
         </section>
     </div>

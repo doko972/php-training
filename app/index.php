@@ -1,3 +1,5 @@
+<?php require "includes/_functions.php";//exo page 6
+?>
 <!DOCTYPE html>
 <html lang="fr">
 

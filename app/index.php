@@ -37,7 +37,7 @@
                 $score = 327;
                 echo "<p>$firstname a obtenu $score  points à cette partie.</p>"
                     ?>
-                    <p><?=$firstname ?></p>
+                <p><?= $firstname ?></p>
             </div>
         </section>
 
@@ -47,22 +47,20 @@
             <h2 class="exercice-ttl">Question 2</h2>
             <p class="exercice-txt">Afficher dans une liste HTML le nom des produits suivants et leurs prix.</p>
             <div class="exercice-sandbox">
-                <?php
-                $nameProduct1 = "arc";
-                $priceProduct1 = 10.30;
-                $nameProduct2 = "flèche";
-                $priceProduct2 = 2.90;
-                $nameProduct3 = "potion";
-                $priceProduct3 = 5.20;
-
-                echo "<ul>
-                            <li>$nameProduct1 : $priceProduct1</li>
-                            <li>$nameProduct2 : $priceProduct2</li>
-                            <li>$nameProduct3 : $priceProduct3</li>
-                     </ul>"
-                    ?>
+                <ul>
+                    <?php
+                    $nameProduct1 = "arc";
+                    $priceProduct1 = 10.30;
+                    $nameProduct2 = "flèche";
+                    $priceProduct2 = 2.90;
+                    $nameProduct3 = "potion";
+                    $priceProduct3 = 5.20;
+                    echo "<li>{$nameProduct1} : {$priceProduct1}</li>"
+                        . "<li>{$nameProduct2} : {$priceProduct2}</li>"
+                        . "<li>{$nameProduct3} : {$priceProduct3}</li>"
+                        ?>
+                </ul>
             </div>
-
         </section>
 
         <!-- QUESTION 3 -->
@@ -76,11 +74,15 @@
                 $quantityProduct2 = 10;
                 $quantityProduct3 = 4;
 
-                $totalSum = $quantityProduct1 + $quantityProduct2 + $quantityProduct3;
-                $totalSumTaxe = $totalSum * 0.1;
-                $totalSumWithTaxe = $totalSum + $totalSumTaxe;
-                echo $totalSumWithTaxe;
+                $totalPrice = 0;
+
+                $totalPrice += $quantityProduct1 * $priceProduct1;
+                $totalPrice += $quantityProduct2 * $priceProduct2;
+                $totalPrice += $quantityProduct3 * $priceProduct3;
+                $discount = 0.9;
+                $discountTotal = $totalPrice * $discount;
                 ?>
+                <p>Le prix total est de <?= number_format($discountTotal, 2) ?></p>
             </div>
         </section>
 
@@ -91,7 +93,7 @@
             <p class="exercice-txt">Affichez le prix le plus élevé des 3 produits ci-dessus.</p>
             <div class="exercice-sandbox">
                 <?php
-                echo max($quantityProduct1, $quantityProduct2, $quantityProduct3);
+                echo number_format(max($priceProduct1, $priceProduct2, $priceProduct3), 2);
                 ?>
             </div>
         </section>
@@ -107,15 +109,18 @@
             <p class="exercice-txt">Affichez dans une liste HTML le nom des produits de la question 2 qui sont présents
                 dans la phrase : "<?= $text1 ?>"</p>
             <div class="exercice-sandbox">
-                <?php
-                if (str_contains($text1, $nameProduct1) && str_contains($text1, $nameProduct2)) {
-                    echo "<li>$nameProduct1</li>
-                          <li>$nameProduct2</li>";
-                }
-                ;
-                ?>
-            </div>
+                <ul>
+                    <?php
+                    if (str_contains($text1, $nameProduct1))
+                        echo "<li>$nameProduct1</li>";
+                    if (str_contains($text1, $nameProduct2))
+                        echo "<li>$nameProduct2</li>";
+                    if (str_contains($text1, $nameProduct3))
+                        echo "<li>$nameProduct3</li>";
 
+                    ?>
+                </ul>
+            </div>
         </section>
 
         <!-- QUESTION 6 -->
@@ -141,19 +146,19 @@
                 $maxValue = 150;
 
                 if ($scorePlayer1 >= $minValue && $scorePlayer1 <= $maxValue) {
-                    echo $namePlayer1;
+                    echo "<li>$namePlayer1</li>";
                 }
                 if ($scorePlayer2 >= $minValue && $scorePlayer2 <= $maxValue) {
-                    echo $namePlayer2;
+                    echo "<li>$namePlayer2</li>";
                 }
                 if ($scorePlayer3 >= $minValue && $scorePlayer3 <= $maxValue) {
-                    echo $namePlayer3;
+                    echo "<li>$namePlayer3</li>";
                 }
                 if ($scorePlayer4 >= $minValue && $scorePlayer4 <= $maxValue) {
-                    echo $namePlayer4;
+                    echo "<li>$namePlayer4</li>";
                 }
                 if ($scorePlayer5 >= $minValue && $scorePlayer5 <= $maxValue) {
-                    echo $namePlayer5;
+                    echo "<li>$namePlayer5</li>";
                 }
                 ?>
             </div>
@@ -167,24 +172,63 @@
                 obtenu le plus grand score.</p>
             <div class="exercice-sandbox">
                 <?php
-
-                $maxValueScore = max($scorePlayer1, $scorePlayer2, $scorePlayer3, $scorePlayer4, $scorePlayer5);
-                // echo $maxValueScore;
-                if ($maxValueScore <= $scorePlayer1) {
-                    echo $namePlayer1;
+                //Methode with scitch case :
+                // switch (max($scorePlayer1, $scorePlayer2, $scorePlayer3, $scorePlayer4, $scorePlayer5)) {
+                //     case $scorePlayer1:
+                //         echo $namePlayer1;
+                //         break;
+                //     case $scorePlayer2:
+                //         echo $namePlayer2;
+                //         break;
+                //     case $scorePlayer3:
+                //         echo $namePlayer3;
+                //         break;
+                //     case $scorePlayer4:
+                //         echo $namePlayer4;
+                //         break;
+                //     case $scorePlayer5:
+                //         echo $namePlayer5;
+                //         break;
+                // }
+                // $maxValueScore = max($scorePlayer1, $scorePlayer2, $scorePlayer3, $scorePlayer4, $scorePlayer5);
+                //Methode with if :
+                // if ($maxValueScore <= $scorePlayer1) {
+                //     echo $namePlayer1;
+                // }
+                // if ($maxValueScore <= $scorePlayer2) {
+                //     echo $namePlayer2;
+                // }
+                // if ($maxValueScore <= $scorePlayer3) {
+                //     echo $namePlayer3;
+                // }
+                // if ($maxValueScore <= $scorePlayer4) {
+                //     echo $namePlayer4;
+                // }
+                // if ($maxValueScore <= $scorePlayer5) {
+                //     echo $namePlayer5;
+                // }
+                
+                if (!isset($scoreMax) || $scorePlayer1 > $scorePlayer2) {
+                    $scoreMax = $scorePlayer1;
+                    $winner = $namePlayer1;
                 }
-                if ($maxValueScore <= $scorePlayer2) {
-                    echo $namePlayer2;
+                if ($scorePlayer2 > $scoreMax) {
+                    $scoreMax = $scorePlayer2;
+                    $winner = $namePlayer2;
                 }
-                if ($maxValueScore <= $scorePlayer3) {
-                    echo $namePlayer3;
+                if ($scorePlayer3 > $scoreMax) {
+                    $scoreMax = $scorePlayer3;
+                    $winner = $namePlayer3;
                 }
-                if ($maxValueScore <= $scorePlayer4) {
-                    echo $namePlayer4;
+                if ($scorePlayer4 > $scoreMax) {
+                    $scoreMax = $scorePlayer4;
+                    $winner = $namePlayer4;
                 }
-                if ($maxValueScore <= $scorePlayer5) {
-                    echo $namePlayer5;
+                if ($scorePlayer5 > $scoreMax) {
+                    $scoreMax = $scorePlayer5;
+                    $winner = $namePlayer5;
                 }
+                echo $winner;
                 ?>
             </div>
         </section>
@@ -202,7 +246,7 @@
                 $lengthPlayerName4 = strlen($namePlayer4);
                 $lengthPlayerName5 = strlen($namePlayer5);
                 $maxValueName = max($lengthPlayerName1, $lengthPlayerName2, $lengthPlayerName3, $lengthPlayerName4, $lengthPlayerName5);
-                // echo $maxValueName;
+
                 if ($lengthPlayerName1 === $maxValueName) {
                     echo $namePlayer1;
                 }
@@ -237,9 +281,66 @@
             <p class="exercice-txt">Afficher la valeur de cette variable avec tous les détails.</p>
             <div class="exercice-sandbox">
                 <?php
-                // $players = [
-                //     $namePlayer1, 
-                // ];
+
+                $agePlayer1 = 25;
+                $agePlayer2 = 34;
+                $agePlayer3 = 27;
+                $agePlayer4 = 47;
+                $agePlayer5 = 31;
+
+                $players = [
+                    [
+                        "name" => $namePlayer1,
+                        "age" => $agePlayer1,
+                        "score" => $scorePlayer1
+                    ],
+                    [
+                        "name" => $namePlayer2,
+                        "age" => $agePlayer2,
+                        "score" => $scorePlayer2
+                    ],
+                    [
+                        "name" => $namePlayer3,
+                        "age" => $agePlayer3,
+                        "score" => $scorePlayer3
+                    ],
+                    [
+                        "name" => $namePlayer4,
+                        "age" => $agePlayer4,
+                        "score" => $scorePlayer4
+                    ],
+                    [
+                        "name" => $namePlayer5,
+                        "age" => $agePlayer5,
+                        "score" => $scorePlayer5
+                    ],
+                ];
+                $players2 = [
+                    $namePlayer1 => [
+                        "age" => $agePlayer1,
+                        "score" => $scorePlayer1
+                    ],
+                    $namePlayer2 => [
+                        "age" => $agePlayer2,
+                        "score" => $scorePlayer2
+                    ],
+                    $namePlayer3 => [
+                        "age" => $agePlayer3,
+                        "score" => $scorePlayer3
+                    ],
+                    $namePlayer4 => [
+                        "age" => $agePlayer4,
+                        "score" => $scorePlayer4
+                    ],
+                    $namePlayer5 => [
+                        "age" => $agePlayer5,
+                        "score" => $scorePlayer5
+                    ],
+                ];
+
+                var_dump($players);
+                var_dump($players[2]['score']);
+                var_dump($players2['Hamed']['score']);
                 ?>
             </div>
         </section>
@@ -250,7 +351,24 @@
             <p class="exercice-txt">Afficher le prénom et l'âge du joueur le plus jeune dans une phrase dans une balise
                 HTML P.</p>
             <div class="exercice-sandbox">
+                <ul>
+                    <li>
+                        <?php
 
+                        // foreach ($players as $player) {
+                        //     var_dump($player['age']);
+                        // }
+                        foreach ($players as $player) {
+                                if(!isset($currentAge) || $player['age'] < $currentAge){
+                                    $currentAge = $player['age'];
+                                    $currentName = $player['name'];
+                                }
+                            }
+                            echo "le joueur le plaus jeu est :" . $currentName . ", il est agé de :" . $currentAge . " ans.";
+
+                        ?>
+                    </li>
+                </ul>
             </div>
         </section>
     </div>

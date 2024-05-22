@@ -86,7 +86,7 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
             <div class="exercice-sandbox">
                 <?php
                 foreach ($fruits as $i => $fruit) {
-                    if($i%2 === 0){
+                    if ($i % 2 === 0) {
                         echo "<li>" . $fruit . "</li>";
                     }
                 }
@@ -99,13 +99,13 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
             <h2 class="exercice-ttl">Question 5</h2>
             <p class="exercice-txt">Afficher un fruit aléatoire du tableau</p>
             <div class="exercice-sandbox">
-            <?php
-                // foreach ($fruits as $i => $fruit) {
-                //     if(rand($i === 0)){
-                //         echo "<li>" . $fruit . "</li>";
-                //     }
-                // }
-                ?>
+                <ul>
+                    <?php
+                    $randomIndex = random_int(0, sizeof($fruits) - 1);
+                    echo "<li>" . $fruits[$randomIndex] . "</li>" .
+                        "<li>" . $fruits[array_rand($fruits)] . "</li>";
+                    ?>
+                </ul>
             </div>
         </section>
 
@@ -114,7 +114,14 @@ $fruits = ["fraise", "banane", "pomme", "cerise", "abricot", "pêche", "ananas",
             <h2 class="exercice-ttl">Question 6</h2>
             <p class="exercice-txt">Afficher les fruits dans un ordre aléatoire</p>
             <div class="exercice-sandbox">
-
+                <ul>
+                    <?php
+                    shuffle($fruits);
+                    foreach($fruits as $fruit){
+                        echo "<li>" . $fruit . "</li>";
+                    }
+                    ?>
+                </ul>
             </div>
         </section>
 

@@ -15,6 +15,7 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/global.css">
     <title>Introduction PHP - Exo 4</title>
+    <?php include 'includes/_functions.php'; ?>
 </head>
 
 <body class="dark-template">
@@ -40,41 +41,21 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
                 caractère HTML permettant d'afficher les valeurs du tableau sous la forme d'une liste.</p>
             <div class="exercice-sandbox">
                 <?php
-                /**
-                 * 
-                 */
-                function htmlToList($array)
-                {
-                    $html = "<ul>";
-                    foreach ($array as $key) {
-                        $html .= "<li>" . $key . "</li>";
-                    }
-                    $html .= "</ul>";
-                    return $html;
-                }
+
                 $htmlList = htmlToList($array);
                 echo $htmlList;
                 ?>
             </div>
         </section>
 
-        <!-- QUESTION 2 -->
+        QUESTION 2
         <section class="exercice">
             <h2 class="exercice-ttl">Question 2</h2>
             <p class="exercice-txt">Déclarer une fonction qui prend en paramètre un tableau d'entiers et retourne
                 uniquement les valeurs paires. Afficher les valeurs du tableau sous la forme d'une liste HTML.</p>
             <div class="exercice-sandbox">
                 <?php
-                function arrayValue($array)
-                {
-                    $arrayVal = [];
-                    foreach ($array as $number) {
-                        if ($number % 2 == 0) {
-                            $arrayVal[] = $number;
-                        }
-                    }
-                    return $arrayVal;
-                }
+
                 $evenValue = arrayValue($array);
                 var_dump($evenValue);
                 ?>
@@ -101,14 +82,7 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
                 retourner les valeurs du tableau mulipliées par 2.</p>
             <div class="exercice-sandbox">
                 <?php
-                function multiplyByTwo($array)
-                {
-                    $arrayVal = [];
-                    foreach ($array as $number) {
-                        $arrayVal[] = $number * 2;
-                    }
-                    return $arrayVal;
-                }
+
                 $multipliedNumbers = multiplyByTwo($array);
                 var_dump($multipliedNumbers);
                 ?>
@@ -122,14 +96,7 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
                 fonction doit retourner les valeurs du tableau divisées par le second paramètre</p>
             <div class="exercice-sandbox">
                 <?php
-                function divideArrayBy($array, $divider)
-                {
-                    $divide = [];
-                    foreach ($array as $value) {
-                        $divide[] = $value / $divider;
-                    }
-                    return $divide;
-                }
+
                 $arrayToDivide = [2, 10, 20, 30, 50];
                 $divider = 2;
                 $divideNumbers = divideArrayBy($arrayToDivide, $divider);
@@ -146,10 +113,7 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
                 caractères et retourne le tableau sans doublons</p>
             <div class="exercice-sandbox">
                 <?php
-                function noDuplicate($array)
-                {
-                    return array_unique($array);
-                }
+
 
                 $noDuplicate = noDuplicate($arrayA);
                 var_dump($noDuplicate);
@@ -164,10 +128,7 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
                 représentant l'intersection des 2</p>
             <div class="exercice-sandbox">
                 <?php
-                function intersectionArray($array1, $array2)
-                {
-                    return array_intersect($array1, $array2);
-                }
+
                 $newArray = intersectionArray($arrayA, $arrayB);
                 var_dump($newArray);
                 ?>
@@ -181,10 +142,7 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
                 valeurs du premier tableau qui ne sont pas dans le second</p>
             <div class="exercice-sandbox">
                 <?php
-                function notInSecArray($array1, $array2)
-                {
-                    return array_diff($array1, $array2);
-                }
+
                 $newArray = notInSecArray($arrayA, $arrayB);
                 var_dump($newArray);
                 ?>
@@ -211,12 +169,8 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
             <p class="exercice-txt">Déclarer une fonction qui prend en paramètre un tableau et un entier et retourne les
                 n premiers éléments du tableau.</p>
             <div class="exercice-sandbox">
-                
+
                 <?php
-                function getFirstElements($array, $n)
-                {
-                    return array_slice($array, 0, $n);
-                }
                 $n = 4;
                 $firstNElements = getFirstElements($arrayA, $n);
                 var_dump($firstNElements);

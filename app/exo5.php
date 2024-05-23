@@ -59,7 +59,7 @@ try {
                         $platforms[] = $serie['availableOn'];
                     }
 
-                    $platforms = array_unique($platforms);//supprimer les doublons
+                    $platforms = array_unique($platforms);
                     sort($platforms);
 
                     foreach ($platforms as $platform) {
@@ -115,27 +115,6 @@ try {
             <div class="exercice-sandbox">
                 <ul>
                     <?php
-                    //?????????????????????????
-                    
-                    $serieId = $_GET['serie'];
-
-                    foreach ($series as $serie) {
-                        if ($serie['id'] == $serieId) {
-                            echo "<h1>" . $serie['name'] . "</h1>";
-                            echo "<img src='" . $serie['image'] . "' alt='" . $serie['name'] . "' />";
-                            echo "<p>Année de lancement : " . $serie['launchYear'] . "</p>";
-                            echo "<p>Pays : " . $serie['country'] . "</p>";
-                            echo "<p>Disponible sur : " . $serie['availableOn'] . "</p>";
-                            echo "<p>Styles : " . implode(", ", $serie['styles']) . "</p>";
-                            echo "<p>Créé par : " . implode(", ", $serie['createdBy']) . "</p>";
-                            echo "<p>Acteurs : " . implode(", ", $serie['actors']) . "</p>";
-                            echo "<p>Durée d'un épisode : " . $serie['episodeDurationInMinutes'] . " minutes</p>";
-                            echo "<p>Nbr de saisons : " . $serie['numberOfSeasons'] . "</p>";
-                            echo "<p>Nbr d'épisodes : " . $serie['numberOfEpisods'] . "</p>";
-                            echo "<p>Statut : " . ($serie['ongoing'] ? "En cours" : "Terminée") . "</p>";
-                        }
-                    }
-
 
                     ?>
                 </ul>

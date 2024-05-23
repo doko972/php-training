@@ -180,7 +180,14 @@ $prices = [3, 2, 2, 5, 8];
             <h2 class="exercice-ttl">Question 9</h2>
             <p class="exercice-txt">Ajouter les nouveaux fruits du tableau $newFruits au tableau $store</p>
             <div class="exercice-sandbox">
-
+                <ul>
+                    <?php
+                    $storeCompleted = array_merge($store, $newFruits);
+                    foreach ($storeCompleted as $fruit => $prix) {
+                        echo "<li>" . $fruit . " son prix est de " . $prix . "€ </li>";
+                    }
+                    ?>
+                </ul>
             </div>
         </section>
 
@@ -189,6 +196,12 @@ $prices = [3, 2, 2, 5, 8];
             <h2 class="exercice-ttl">Question 10</h2>
             <p class="exercice-txt">Afficher le nom et le prix du fruit le moins cher</p>
             <div class="exercice-sandbox">
+                
+                <?php
+                $minPrice = min($storeCompleted);
+                $cheapFruit = array_search($minPrice, $storeCompleted);
+                  echo  "<p> Le fruit le moins cher est le " .  $cheapFruit . " qui coûte " . $minPrice . " €</p>";
+                ?>
 
             </div>
         </section>
@@ -198,6 +211,11 @@ $prices = [3, 2, 2, 5, 8];
             <h2 class="exercice-ttl">Question 11</h2>
             <p class="exercice-txt">Afficher les noms et le prix des fruits les plus chers</p>
             <div class="exercice-sandbox">
+            <?php
+                $maxPrice = max($storeCompleted);
+                $expensiveFruit = array_search($maxPrice, $storeCompleted);
+                  echo  "<p> Le fruit le plus cher est la " .  $expensiveFruit . " qui coûte " . $maxPrice . " €</p>";
+                ?>
 
             </div>
         </section>

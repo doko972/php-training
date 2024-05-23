@@ -40,16 +40,33 @@ try {
         </header>
 
         <section class="exercice">
-            Sur cette page un fichier comportant les données de séries télé est importé côté serveur. (voir datas/series.json)
+            Sur cette page un fichier comportant les données de séries télé est importé côté serveur. (voir
+            datas/series.json)
             Les données sont accessibles dans la variable $series.
         </section>
 
         <!-- QUESTION 1 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 1</h2>
-            <p class="exercice-txt">Récupérer dans un tableau puis afficher l'ensemble des plateformes de diffusion des séries. Afficher les par ordre alphabétique.</p>
+            <p class="exercice-txt">Récupérer dans un tableau puis afficher l'ensemble des plateformes de diffusion des
+                séries. Afficher les par ordre alphabétique.</p>
             <div class="exercice-sandbox">
-                
+                <ul>
+                    <?php
+                    $platforms = array();
+
+                    foreach ($series as $serie) {
+                        $platforms[] = $serie['availableOn'];
+                    }
+
+                    $platforms = array_unique($platforms);//supprimer les doublons
+                    sort($platforms);
+
+                    foreach ($platforms as $platform) {
+                        echo "<li>" . $platform . "</li>";
+                    }
+                    ?>
+                </ul>
             </div>
         </section>
 
@@ -57,18 +74,34 @@ try {
         <section class="exercice">
             <h2 class="exercice-ttl">Question 2</h2>
             <p class="exercice-txt">Afficher la liste de toutes les séries avec l'image principale et son titre</p>
-            <p class="exercice-txt">Afficher une seule série par ligne sur les plus petits écrans, 2 séries par ligne sur les écrans intermédiaires et 4 séries par ligne sur un écran d'ordinateur.</p>
+            <p class="exercice-txt">Afficher une seule série par ligne sur les plus petits écrans, 2 séries par ligne
+                sur les écrans intermédiaires et 4 séries par ligne sur un écran d'ordinateur.</p>
             <div class="exercice-sandbox">
-
+                <ul>
+                    <?php
+                    foreach ($series as $serie) {
+                        echo "<h2>" . $serie['name'] . "</h2>";
+                        echo "<img src='" . $serie['image'] . "' alt='" . $serie['name'] . "' />";
+                    }
+                    ?>
+                </ul>
             </div>
         </section>
 
         <!-- QUESTION 3 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 3</h2>
-            <p class="exercice-txt">Ajouter un lien aux séries listées ci-dessus menant à cette page avec en paramètre "serie", l'identifiant de la série</p>
+            <p class="exercice-txt">Ajouter un lien aux séries listées ci-dessus menant à cette page avec en paramètre
+                "serie", l'identifiant de la série</p>
             <div class="exercice-sandbox">
-
+                <ul class="serie-img">
+                    <?php
+                    foreach ($series as $serie) {
+                        echo "<li>" . $serie['name'] . "</li>";
+                        echo "<a href='#'" . $serie['id'] . "'>";
+                    }
+                    ?>
+                </ul>
             </div>
         </section>
 
@@ -76,44 +109,131 @@ try {
         <!-- QUESTION 4 -->
         <section id="question4" class="exercice">
             <h2 class="exercice-ttl">Question 4</h2>
-            <p class="exercice-txt">Si l'URL de la page appelée comporte l'identifiant d'une série, alors afficher toutes les informations de la série ci-dessous.</p>
+            <p class="exercice-txt">Si l'URL de la page appelée comporte l'identifiant d'une série, alors afficher
+                toutes les informations de la série ci-dessous.</p>
             <p class="exercice-txt">Si l'identifiant ne correspond à aucune série, afficher un message d'erreur.</p>
             <div class="exercice-sandbox">
-                
+                <ul>
+                    <?php
+                    //?????????????????????????
+                    
+                    $serieId = $_GET['serie'];
+
+                    foreach ($series as $serie) {
+                        if ($serie['id'] == $serieId) {
+                            echo "<h1>" . $serie['name'] . "</h1>";
+                            echo "<img src='" . $serie['image'] . "' alt='" . $serie['name'] . "' />";
+                            echo "<p>Année de lancement : " . $serie['launchYear'] . "</p>";
+                            echo "<p>Pays : " . $serie['country'] . "</p>";
+                            echo "<p>Disponible sur : " . $serie['availableOn'] . "</p>";
+                            echo "<p>Styles : " . implode(", ", $serie['styles']) . "</p>";
+                            echo "<p>Créé par : " . implode(", ", $serie['createdBy']) . "</p>";
+                            echo "<p>Acteurs : " . implode(", ", $serie['actors']) . "</p>";
+                            echo "<p>Durée d'un épisode : " . $serie['episodeDurationInMinutes'] . " minutes</p>";
+                            echo "<p>Nbr de saisons : " . $serie['numberOfSeasons'] . "</p>";
+                            echo "<p>Nbr d'épisodes : " . $serie['numberOfEpisods'] . "</p>";
+                            echo "<p>Statut : " . ($serie['ongoing'] ? "En cours" : "Terminée") . "</p>";
+                        }
+                    }
+
+
+                    ?>
+                </ul>
             </div>
         </section>
 
         <!-- QUESTION 5 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 5</h2>
-            <p class="exercice-txt">Récupérer dans un tableau l'ensemble des styles de séries dans une liste HTML. Afficher les par ordre alphabétique dans une liste HTML.</p>
+            <p class="exercice-txt">Récupérer dans un tableau l'ensemble des styles de séries dans une liste HTML.
+                Afficher les par ordre alphabétique dans une liste HTML.</p>
             <div class="exercice-sandbox">
-                
+                <ul>
+                    <?php
+                    $styles = array();
+
+                    foreach ($series as $serie) {
+                        foreach ($serie['styles'] as $style) {
+                            $styles[] = $style;
+                        }
+                    }
+
+                    $styles = array_unique($styles);
+
+                    sort($styles);
+
+                    foreach ($styles as $style) {
+                        echo "<li>" . $style . "</li>";
+                    }
+                    ?>
+                </ul>
+
             </div>
         </section>
 
         <!-- QUESTION 6 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 6</h2>
-            <p class="exercice-txt">Ajoutez après chaque style de la liste ci-dessus, le nombre de séries correspondantes entre parenthèses.</p>
+            <p class="exercice-txt">Ajoutez après chaque style de la liste ci-dessus, le nombre de séries
+                correspondantes entre parenthèses.</p>
             <div class="exercice-sandbox">
-                
+                <ul>
+                    <?php
+                    $addStyles = array();
+
+                    foreach ($series as $serie) {
+                        foreach ($serie['styles'] as $style) {
+                            if (!isset($addStyles[$style])) {
+                                $addStyles[$style] = 1;
+                            } else {
+                                $addStyles[$style]++;
+                            }
+                        }
+                    }
+
+                    ksort($addStyles);// Sort styles alphabetically
+                    
+                    foreach ($addStyles as $style => $count) {
+                        echo "<li>" . $style . " (" . $count . ")" . "</li>";
+                    }
+                    ?>
+                </ul>
             </div>
         </section>
 
         <!-- QUESTION 7 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 7</h2>
-            <p class="exercice-txt">Ajoutez un lien à chaque nom de style ci-dessus menant à cette page avec en paramètre "style" le nom du style.</p>
+            <p class="exercice-txt">Ajoutez un lien à chaque nom de style ci-dessus menant à cette page avec en
+                paramètre "style" le nom du style.</p>
             <div class="exercice-sandbox">
+                <ul>
+                    <?php
+                    $styles = array();
 
+                    foreach ($series as $serie) {
+                        foreach ($serie['styles'] as $style) {
+                            $styles[] = $style;
+                        }
+                    }
+
+                    $styles = array_unique($styles);
+                    sort($styles);
+
+                    foreach ($styles as $style) {
+                        echo "<li>" . $style . "</li>";
+                        echo "<a href='#'" . $style . "'>";
+                    }
+                    ?>
+                </ul>
             </div>
         </section>
 
         <!-- QUESTION 8 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 8</h2>
-            <p class="exercice-txt">Si l'URL de la page appelée comporte un style, affichez à la Question 2 uniquement les séries de ce style.</p>
+            <p class="exercice-txt">Si l'URL de la page appelée comporte un style, affichez à la Question 2 uniquement
+                les séries de ce style.</p>
             <div class="exercice-sandbox">
 
             </div>

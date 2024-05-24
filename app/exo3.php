@@ -186,6 +186,7 @@ $prices = [3, 2, 2, 5, 8];
                     foreach ($storeCompleted as $fruit => $prix) {
                         echo "<li>" . $fruit . " son prix est de " . $prix . "€ </li>";
                     }
+                    
                     ?>
                 </ul>
             </div>
@@ -200,7 +201,7 @@ $prices = [3, 2, 2, 5, 8];
                 <?php
                 $minPrice = min($storeCompleted);
                 $cheapFruit = array_search($minPrice, $storeCompleted);
-                  echo  "<p> Le fruit le moins cher est le " .  $cheapFruit . " qui coûte " . $minPrice . " €</p>";
+                  echo  "<p> Le fruit le moins cher est le " . number_format($storeCompleted[$cheapFruit], 2) . " qui coûte " . $minPrice . " €</p>";
                 ?>
 
             </div>

@@ -42,8 +42,10 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
             <div class="exercice-sandbox">
                 <?php
 
-                $htmlList = htmlToList($array);
+                $htmlList = getArrayAsHtmlList($arrayA);
                 echo $htmlList;
+
+                echo getArrayAsHTMLList2($array);
                 ?>
             </div>
         </section>

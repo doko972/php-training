@@ -13,10 +13,12 @@
     <?php
     /**
      * Takes an array as a parameter and returns the character string
-     * @param {*} array
-     * @returns {string} values ​​of the array to be displayed in the form of a list
+     *
+     * @param array $array
+     * @return string values ​​of the array to be displayed in the form of a list
      */
-    function htmlToList($array)
+    //exercice 1 
+    function getArrayAsHtmlList(array $array)
     {
         $html = "<ul>";
         foreach ($array as $key) {
@@ -25,12 +27,24 @@
         $html .= "</ul>";
         return $html;
     }
+//exercice 1 another possibility
+    /**
+     * Get from an array a HTML list string
+     * @param array $array your array you want in HTML list
+     * @return string the HTML list
+     */
+    function getArrayAsHTMLList2(array $array): string
+    {
+        return '<ul>' . implode(array_map(fn($value) => "<li>{$value}</li>", $array)) . '</ul>';
+    }
+    //////////////////////////////////////////////////////////////////////
     /**
      * Takes an array of integers as parameter and returns only even values
      * @param {number} array
      * @returns {number} Display array values ​​as an HTML list.
      */
-    function arrayValue($array)
+
+    function arrayValue(array $array)
     {
         $arrayVal = [];
         foreach ($array as $number) {

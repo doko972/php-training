@@ -207,18 +207,35 @@
     }
 
     /**
- * Generate and return HTML code to display the show with the details in parameter.
+     * Generate and return HTML code to display the show with the details in parameter.
+     *
+     * @param array $show An array containing show details
+     * @return string HTML code to display the show
+     */
+    function generateShow(array $show): string
+    {
+        return '<li>'
+            . '<a href="exo5.php?serie=' . $show['id'] . '#question4">'
+            . '<h3>' . $show['name'] . '</h3>'
+            . "<img src='" . $show['image'] . "' alt='" . $show['id'] . "' /></a></li>";
+    }
+/**
+ * Get show informations from its ID.
  *
- * @param array $show An array containing show details
- * @return string HTML code to display the show
+ * @param array $dataSeries The array containing series data.
+ * @param integer $id Show's ID you want the information of.
+ * @return array|null Show informations or null if no ID found.
  */
-function generateShow(array $show): string
+function getShowInformationsFromId(array $dataSeries, int $id = 1): ?array
 {
-    return '<li>'
-    . '<a href="exo5.php?serie=' . $show['id'] . '#question4">'
-    . '<h3>' . $show['name'] . '</h3>' 
-    ."<img src='" . $show['image'] . "' alt='" . $show['id'] . "' /></a></li>";
+    foreach ($dataSeries as $show) {
+        if ($show['id'] === $id) {
+            return $show;
+        }
+    }
+    return null;
 }
+
     ?>
 
 </body>

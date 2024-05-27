@@ -69,7 +69,6 @@ try {
                 sur les écrans intermédiaires et 4 séries par ligne sur un écran d'ordinateur.</p>
             <div class="exercice-sandbox">
                 <ul class="container-series">
-                    
                     <?php
                     foreach ($series as $serie) {
                         // echo '<li>'
@@ -78,9 +77,6 @@ try {
                         // ."<img src='" . $serie['image'] . "' alt='" . $serie['id'] . "' /></a></li>";
                         echo generateShow($serie);
                     }
-
-                    
-
                     ?>
                 </ul>
             </div>
@@ -98,7 +94,7 @@ try {
                         foreach ($series as $serie) {
                             echo '<li><a href="exo5.php?series=id' . $serie['id'] . '">' . $serie['name'] . '</a></li>';
                         }
-                        var_dump(@$_GET['series']);
+                        var_dump(@$_GET['serie']);
                         ?>
                     </ul>
                 </div>
@@ -113,7 +109,9 @@ try {
                 <div class="exercice-sandbox">
                     <ul>
                         <?php
-
+                        if (isset($_GET['serie'])) {
+                            var_dump(getShowInformationsFromId($series, intval($_GET['serie'])));
+                        }
                         ?>
                     </ul>
                 </div>

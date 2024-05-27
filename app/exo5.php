@@ -1,5 +1,6 @@
-<?php include './includes/_functions.php'; ?>
 <?php
+include "./include/_functions.php";
+include "./include/_seriesFunctions.php";
 
 // Json file
 try {
@@ -9,7 +10,6 @@ try {
     echo "Something went wrong with json file...";
     exit;
 }
-// var_dump($_GET);
 
 ?>
 
@@ -21,7 +21,7 @@ try {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Introduction PHP - Exo 5</title>
 </head>
 
@@ -42,22 +42,20 @@ try {
         </header>
 
         <section class="exercice">
-            Sur cette page un fichier comportant les données de séries télé est importé côté serveur. (voir
-            datas/series.json)
+            Sur cette page un fichier comportant les données de séries télé est importé côté serveur. (voir datas/series.json)
             Les données sont accessibles dans la variable $series.
         </section>
 
         <!-- QUESTION 1 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 1</h2>
-            <p class="exercice-txt">Récupérer dans un tableau puis afficher l'ensemble des plateformes de diffusion des
-                séries. Afficher les par ordre alphabétique.</p>
+            <p class="exercice-txt">Récupérer dans un tableau puis afficher l'ensemble des plateformes de diffusion des séries. Afficher les par ordre alphabétique.</p>
             <div class="exercice-sandbox">
-                <ul>
-                    <?php
-                    var_dump(getPlatformsFromSeries($series));
-                    ?>
-                </ul>
+
+                <?php
+                var_dump(getPlatformsFromSeries($series));
+                ?>
+
             </div>
         </section>
 
@@ -65,150 +63,77 @@ try {
         <section class="exercice">
             <h2 class="exercice-ttl">Question 2</h2>
             <p class="exercice-txt">Afficher la liste de toutes les séries avec l'image principale et son titre</p>
-            <p class="exercice-txt">Afficher une seule série par ligne sur les plus petits écrans, 2 séries par ligne
-                sur les écrans intermédiaires et 4 séries par ligne sur un écran d'ordinateur.</p>
+            <p class="exercice-txt">Afficher une seule série par ligne sur les plus petits écrans, 2 séries par ligne sur les écrans intermédiaires et 4 séries par ligne sur un écran d'ordinateur.</p>
             <div class="exercice-sandbox">
-                <ul class="container-series">
-                    <?php
-                    foreach ($series as $serie) {
-                        // echo '<li>'
-                        // . '<a href="exo5.php?serie=' . $serie['id'] . '#question4">'
-                        // . '<h3>' . $serie['name'] . '</h3>' 
-                        // ."<img src='" . $serie['image'] . "' alt='" . $serie['id'] . "' /></a></li>";
-                        echo generateShow($serie);
-                    }
-                    ?>
-                </ul>
+                <?php
+                echo generateSeries($series);
+
+                ?>
             </div>
         </section>
-        <a href="">
-            <!-- QUESTION 3 -->
-            <section class="exercice">
-                <h2 class="exercice-ttl">Question 3</h2>
-                <p class="exercice-txt">Ajouter un lien aux séries listées ci-dessus menant à cette page avec en
-                    paramètre
-                    "serie", l'identifiant de la série</p>
-                <div class="exercice-sandbox">
-                    <ul class="serie-img">
-                        <?php
-                        foreach ($series as $serie) {
-                            echo '<li><a href="exo5.php?series=id' . $serie['id'] . '">' . $serie['name'] . '</a></li>';
-                        }
-                        var_dump(@$_GET['serie']);
-                        ?>
-                    </ul>
-                </div>
-            </section>
 
-            <!-- QUESTION 4 -->
-            <section id="question4" class="exercice">
-                <h2 class="exercice-ttl">Question 4</h2>
-                <p class="exercice-txt">Si l'URL de la page appelée comporte l'identifiant d'une série, alors afficher
-                    toutes les informations de la série ci-dessous.</p>
-                <p class="exercice-txt">Si l'identifiant ne correspond à aucune série, afficher un message d'erreur.</p>
-                <div class="exercice-sandbox">
-                    <ul>
-                        <?php
-                        if (isset($_GET['serie'])) {
-                            $seriesData = getShowInformationsFromId($series, $_GET['serie']);
+        <!-- QUESTION 3 -->
+        <section class="exercice">
+            <h2 class="exercice-ttl">Question 3</h2>
+            <p class="exercice-txt">Ajouter un lien aux séries listées ci-dessus menant à cette page avec en paramètre "serie", l'identifiant de la série</p>
+            <div class="exercice-sandbox">
+                <?php
 
-                            if (is_null($seriesData)) {
-                                echo '<p>La série sélectionnée n\'existe pas.</p>';
-                            } else {
-                                echo generateShow($seriesData, true);
-                            }
-                        } else {
-                            echo '<p>Aucune série sélectionnée.</p>';
-                        }
-                        ?>
-                    </ul>
-                </div>
-            </section>
+                ?>
+            </div>
+        </section>
 
-            <!-- QUESTION 5 -->
-            <section class="exercice">
-                <h2 class="exercice-ttl">Question 5</h2>
-                <p class="exercice-txt">Récupérer dans un tableau l'ensemble des styles de séries dans une liste HTML.
-                    Afficher les par ordre alphabétique dans une liste HTML.</p>
-                <div class="exercice-sandbox">
-                    <ul>
+
+        <!-- QUESTION 4 -->
+        <section id="question4" class="exercice">
+            <h2 class="exercice-ttl">Question 4</h2>
+            <p class="exercice-txt">Si l'URL de la page appelée comporte l'identifiant d'une série, alors afficher toutes les informations de la série ci-dessous.</p>
+            <p class="exercice-txt">Si l'identifiant ne correspond à aucune série, afficher un message d'erreur.</p>
+            <div class="exercice-sandbox">
+                <?=generateSelectedShow($series)?>
+            </div>
+        </section>
+
+        <!-- QUESTION 5 -->
+        <section class="exercice">
+            <h2 class="exercice-ttl">Question 5</h2>
+            <p class="exercice-txt">Récupérer dans un tableau l'ensemble des styles de séries dans une liste HTML. Afficher les par ordre alphabétique dans une liste HTML.</p>
+            <div class="exercice-sandbox">
+            <ul>
                         <?php
                         $seriesFromStyles = getSeriesFromStyles($series);
                         echo getArrayAsHTMLList($seriesFromStyles);
                         ?>
                     </ul>
+            </div>
+        </section>
 
-                </div>
-            </section>
+        <!-- QUESTION 6 -->
+        <section class="exercice">
+            <h2 class="exercice-ttl">Question 6</h2>
+            <p class="exercice-txt">Ajoutez après chaque style de la liste ci-dessus, le nombre de séries correspondantes entre parenthèses.</p>
+            <div class="exercice-sandbox">
 
-            <!-- QUESTION 6 -->
-            <section class="exercice">
-                <h2 class="exercice-ttl">Question 6</h2>
-                <p class="exercice-txt">Ajoutez après chaque style de la liste ci-dessus, le nombre de séries
-                    correspondantes entre parenthèses.</p>
-                <div class="exercice-sandbox">
-                    <ul>
-                        <?php
-                        $addStyles = array();
+            </div>
+        </section>
 
-                        foreach ($series as $serie) {
-                            foreach ($serie['styles'] as $style) {
-                                if (!isset($addStyles[$style])) {
-                                    $addStyles[$style] = 1;
-                                } else {
-                                    $addStyles[$style]++;
-                                }
-                            }
-                        }
+        <!-- QUESTION 7 -->
+        <section class="exercice">
+            <h2 class="exercice-ttl">Question 7</h2>
+            <p class="exercice-txt">Ajoutez un lien à chaque nom de style ci-dessus menant à cette page avec en paramètre "style" le nom du style.</p>
+            <div class="exercice-sandbox">
 
-                        ksort($addStyles);// Sort styles alphabetically
-                        
-                        foreach ($addStyles as $style => $count) {
-                            echo "<li>" . $style . " (" . $count . ")" . "</li>";
-                        }
-                        ?>
-                    </ul>
-                </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- QUESTION 7 -->
-            <section class="exercice">
-                <h2 class="exercice-ttl">Question 7</h2>
-                <p class="exercice-txt">Ajoutez un lien à chaque nom de style ci-dessus menant à cette page avec en
-                    paramètre "style" le nom du style.</p>
-                <div class="exercice-sandbox">
-                    <ul>
-                        <?php
-                        $styles = array();
+        <!-- QUESTION 8 -->
+        <section class="exercice">
+            <h2 class="exercice-ttl">Question 8</h2>
+            <p class="exercice-txt">Si l'URL de la page appelée comporte un style, affichez à la Question 2 uniquement les séries de ce style.</p>
+            <div class="exercice-sandbox">
 
-                        foreach ($series as $serie) {
-                            foreach ($serie['styles'] as $style) {
-                                $styles[] = $style;
-                            }
-                        }
-
-                        $styles = array_unique($styles);
-                        sort($styles);
-
-                        foreach ($styles as $style) {
-                            echo "<li>" . $style . "</li>";
-                            echo "<a href='#'" . $style . "'>";
-                        }
-                        ?>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- QUESTION 8 -->
-            <section class="exercice">
-                <h2 class="exercice-ttl">Question 8</h2>
-                <p class="exercice-txt">Si l'URL de la page appelée comporte un style, affichez à la Question 2
-                    uniquement
-                    les séries de ce style.</p>
-                <div class="exercice-sandbox">
-
-                </div>
-            </section>
+            </div>
+        </section>
 
     </div>
     <div class="copyright">© Guillaume Belleuvre, 2023 - DWWM</div>

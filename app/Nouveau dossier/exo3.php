@@ -31,17 +31,19 @@ $prices = [3, 2, 2, 5, 8];
                 </ul>
             </nav>
         </header>
-
-
         <!-- QUESTION 1 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 1</h2>
             <p class="exercice-txt">Ordonner le tableau des prix par ordre croissant et l'afficher en détail</p>
             <div class="exercice-sandbox">
-                <?php
-                sort($prices);
-                var_dump($prices);
-                ?>
+                <ul>
+                    <?php
+                    asort($prices);
+                    foreach ($prices as $price) {
+                        echo "<li>" . $price . "</li>";
+                    }
+                    ?>
+                </ul>
             </div>
         </section>
 
@@ -50,38 +52,29 @@ $prices = [3, 2, 2, 5, 8];
             <h2 class="exercice-ttl">Question 2</h2>
             <p class="exercice-txt">Ajouter 1 euro à chaque prix</p>
             <div class="exercice-sandbox">
-                <?php
-
-                $prices = array_map(fn ($price) => ++$price, $prices);
-                var_dump($prices);
-
-                // foreach ($prices as $i => $price) {
-                //     $prices[$i]++;
-                // }
-                // var_dump($prices);
-
-                // for ($i = 0; $i < count($prices); $i++) {
-                //     $prices[$i]++;
-                // }
-                // var_dump($prices);
-
-                // foreach ($prices as &$price) {
-                //     $price++;
-                // }
-                // var_dump($prices);
-
-                ?>
+                <ul>
+                    <?php
+                    asort($prices);
+                    $one = 1;
+                    foreach ($prices as $price) {
+                        echo "<li>" . $price + $one . "</li>";
+                    }
+                    ?>
+                </ul>
             </div>
         </section>
 
         <!-- QUESTION 3 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 3</h2>
-            <p class="exercice-txt">Créer le tableau $store qui combine les tableaux des fruits et des prix afin d'obtenir un tableau associatif d'attribution des prix. Afficher le tableau obtenu</p>
+            <p class="exercice-txt">Créer le tableau $store qui combine les tableaux des fruits et des prix afin
+                d'obtenir un tableau associatif d'attribution des prix. Afficher le tableau obtenu</p>
             <div class="exercice-sandbox">
                 <?php
+
                 $store = array_combine($fruits, $prices);
                 var_dump($store);
+
                 ?>
             </div>
         </section>
@@ -91,15 +84,15 @@ $prices = [3, 2, 2, 5, 8];
             <h2 class="exercice-ttl">Question 4</h2>
             <p class="exercice-txt">Afficher dans une liste HTML le nom des fruits ayant un prix inférieur à 4 euros</p>
             <div class="exercice-sandbox">
-                <?php
-                echo "<ul>";
-                foreach ($store as $fruit => $price) {
-                    if ($price < 4) {
-                        echo "<li>$fruit</li>";
+                <ul>
+                    <?php
+                    foreach ($store as $storeName => $storePrice) {
+                        if ($storePrice < 4) {
+                            echo "<li>" . $storeName . "</li>";
+                        }
                     }
-                }
-                echo "</ul>";
-                ?>
+                    ?>
+                </ul>
             </div>
         </section>
 
@@ -108,58 +101,69 @@ $prices = [3, 2, 2, 5, 8];
             <h2 class="exercice-ttl">Question 5</h2>
             <p class="exercice-txt">Afficher dans une liste HTML le nom des fruits ayant un prix pair</p>
             <div class="exercice-sandbox">
-                <ul>
-                    <?php
-                    foreach ($store as $fruit => $price) {
-                        if ($price % 2 === 0) {
-                            echo "<li>{$fruit}</li>";
-                        }
+                <?php
+                foreach ($store as $storeName => $storePrice) {
+                    if ($storePrice % 2 === 0) {
+                        echo "<li>" . $storeName . "</li>";
                     }
-                    ?>
-                </ul>
+                }
+                ?>
             </div>
         </section>
 
         <!-- QUESTION 6 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 6</h2>
-            <p class="exercice-txt">Composer un panier de fruits ne dépassant pas 12 euros, en sélectionnant chaque fruit dans l'ordre actuel.</p>
+            <p class="exercice-txt">Composer un panier de fruits ne dépassant pas 12 euros, en sélectionnant chaque
+                fruit dans l'ordre actuel.</p>
             <div class="exercice-sandbox">
-                <?php
-                $sumMax = 12;
-                $basket = [];
-                foreach ($store as $fruit => $price) {
-                    if ($sumMax - $price >= 0) {
-                        $sumMax -= $price;
-                        $basket[$fruit] = $price;
+                <ul>
+                    <?php
+
+                    $panier = [];
+                    $total = 0;
+
+                    foreach ($store as $fruit => $prix) {
+                        if ($total + $prix <= 12) {
+                            $panier[] = $fruit;
+                            $total += $prix;
+                        }
                     }
-                }
-                var_dump($basket);
-                var_dump(array_sum($basket));
-                ?>
+                    foreach ($panier as $fruit) {
+                        echo "<li>$fruit</li>";
+                    }
+                    echo "<p>Panier : $total euros</p>";
+                    ?>
+                </ul>
             </div>
         </section>
 
         <!-- QUESTION 7 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 7</h2>
-            <p class="exercice-txt">En reprenant le prix total du panier constitué à la question précédente, appliquez-lui une taxe de 18%. Afficher le total taxe comprise.</p>
+            <p class="exercice-txt">En reprenant le prix total du panier constitué à la question précédente,
+                appliquez-lui une taxe de 18%. Afficher le total taxe comprise.</p>
             <div class="exercice-sandbox">
                 <?php
-                echo '<p> Montant total TTC : ' . number_format(array_sum($basket) * 1.18, 2) . ' €.'
+                $Tax = $total * 0.18;
+                $totalWithTax = $total + $Tax;
+                echo "<p>" . "Le total avec taxe est de " . $totalWithTax . "</p>";
                 ?>
+
             </div>
         </section>
 
         <!-- QUESTION 8 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 8</h2>
-            <p class="exercice-txt">Ajouter au tableau $store le fruit "kiwi" pour un prix de 1,50 € puis afficher le tableau complet</p>
+            <p class="exercice-txt">Ajouter au tableau $store le fruit "kiwi" pour un prix de 1,50 € puis afficher le
+                tableau complet</p>
             <div class="exercice-sandbox">
                 <?php
-                $store['kiwi'] = 1.50;
-
-                var_dump($store);
+                $store["Kiwi"] = 1.50;
+                foreach ($store as $fruit => $prix) {
+                    echo "<li>$fruit : $prix euros</li>";
+                }
                 ?>
             </div>
         </section>
@@ -176,18 +180,15 @@ $prices = [3, 2, 2, 5, 8];
             <h2 class="exercice-ttl">Question 9</h2>
             <p class="exercice-txt">Ajouter les nouveaux fruits du tableau $newFruits au tableau $store</p>
             <div class="exercice-sandbox">
-                <?php
-                // $store = array_merge($store, $newFruits);
-
-                // $store = [...$store, ...$newFruits];
-
-                // array_push($store, ...$newFruits);
-
-                $store += $newFruits;
-
-
-                var_dump($store);
-                ?>
+                <ul>
+                    <?php
+                    $storeCompleted = array_merge($store, $newFruits);
+                    foreach ($storeCompleted as $fruit => $prix) {
+                        echo "<li>" . $fruit . " son prix est de " . $prix . "€ </li>";
+                    }
+                    
+                    ?>
+                </ul>
             </div>
         </section>
 
@@ -196,21 +197,13 @@ $prices = [3, 2, 2, 5, 8];
             <h2 class="exercice-ttl">Question 10</h2>
             <p class="exercice-txt">Afficher le nom et le prix du fruit le moins cher</p>
             <div class="exercice-sandbox">
+                
                 <?php
-                // $cheapestFruit = "";
-
-                // foreach ($store as $fruit => $price) {
-                //     if (!isset($cheapestPrice) || $price < $cheapestPrice) {
-                //         $cheapestFruit = $fruit;
-                //         $cheapestPrice = $price;
-                //     }
-                // }
-
-                // echo "$cheapestFruit : $cheapestPrice";
-
-                $cheapestFruit = array_search(min($store), $store);
-                echo "{$cheapestFruit} : " . number_format($store[$cheapestFruit], 2) . " €.";
+                $minPrice = min($storeCompleted);
+                $cheapFruit = array_search($minPrice, $storeCompleted);
+                  echo  "<p> Le fruit le moins cher est le " . number_format($storeCompleted[$cheapFruit], 2) . " qui coûte " . $minPrice . " €</p>";
                 ?>
+
             </div>
         </section>
 
@@ -219,19 +212,12 @@ $prices = [3, 2, 2, 5, 8];
             <h2 class="exercice-ttl">Question 11</h2>
             <p class="exercice-txt">Afficher les noms et le prix des fruits les plus chers</p>
             <div class="exercice-sandbox">
-                <?php
-                $mostExpensive = [];
-                foreach ($store as $fruit => $price) {
-                    if ($price === max($store)) array_push($mostExpensive, $fruit);
-                };
-                echo "Les fruits les plus chers sont :" . implode(', ', $mostExpensive) . ". Leur prix est de : " . max($store) . ' €.';
-
-
-                $mostExpensive = array_filter($store, fn ($p) => $p === max($store));
-
-                var_dump($mostExpensive);
-
+            <?php
+                $maxPrice = max($storeCompleted);
+                $expensiveFruit = array_search($maxPrice, $storeCompleted);
+                  echo  "<p> Le fruit le plus cher est la " .  $expensiveFruit . " qui coûte " . $maxPrice . " €</p>";
                 ?>
+
             </div>
         </section>
     </div>

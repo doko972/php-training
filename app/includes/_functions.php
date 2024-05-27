@@ -12,22 +12,21 @@
 
     <?php
     /**
-     * Takes an array as a parameter and returns the character string
-     *
-     * @param array $array
-     * @return string values ​​of the array to be displayed in the form of a list
+     * Get from an array a HTML list string
+     * @param array $array your array you want in HTML list
+     * @return string the HTML list
      */
-    //exercice 1 
-    function getArrayAsHtmlList(array $array)
+    function getArrayAsHTMLList(array $array): string
     {
-        $html = "<ul>";
-        foreach ($array as $key) {
-            $html .= "<li>" . $key . "</li>";
-        }
-        $html .= "</ul>";
-        return $html;
+        // $values = '';
+        // foreach($array as $value){
+        //     $values .= "<li>{$value}</li>";
+        // }
+    
+        return '<ul>' . implode(array_map(fn($v) => "<li>{$v}</li>", $array)) . '</ul>';
     }
-//exercice 1 another possibility
+
+    //exercice 1 another possibility
     /**
      * Get from an array a HTML list string
      * @param array $array your array you want in HTML list
@@ -37,86 +36,189 @@
     {
         return '<ul>' . implode(array_map(fn($value) => "<li>{$value}</li>", $array)) . '</ul>';
     }
-    //////////////////////////////////////////////////////////////////////
+    //exercice 2
     /**
      * Takes an array of integers as parameter and returns only even values
-     * @param {number} array
-     * @returns {number} Display array values ​​as an HTML list.
+     *
+     * @param array $array
+     * @return string Display array values ​​as an HTML list.
      */
-
-    function arrayValue(array $array)
+    function getEvenValues(array $intArray): array
     {
-        $arrayVal = [];
-        foreach ($array as $number) {
-            if ($number % 2 == 0) {
-                $arrayVal[] = $number;
+        // foreach ($intArray as $value) {
+        //     if (is_int($value) && $value % 2 === 0) {
+        //         $intList[] = $value;
+        //     }
+        // }
+        // return $intList;
+    
+        return array_filter($intArray, fn($v) => is_int($v) && $v % 2 === 0);
+    }
+    //exercice 3
+    function getValueEvenIndex(array $array): array
+    {
+        // $valuesInt = [];
+        // foreach ($array as $key => $value) {
+        //     if(is_int($key) && $key % 2 === 0 && is_int($value)) {
+        //         $valuesInt[$key] = $value;
+        //     }
+        // }
+        // return $valuesInt;
+        return array_filter(
+            $array,
+            fn($v, $k) => is_int($k) && $k % 2 === 0 && is_int($v),
+            ARRAY_FILTER_USE_BOTH
+        );
+    }
+
+    /**
+     * Get array values and multiply by 2
+     *
+     * @param array $array the array you want to double values from
+     * @return array new array with doubled values
+     */
+    function doubleArrayValues(array $array): array
+    {
+        $arrayResult = [];
+        foreach ($array as $value) {
+            if (is_int($value)) {
+                $arrayResult[] = $value * 2;
             }
         }
-        return $arrayVal;
-    }
-    /**
-     * Takes an array of integers as parameter. Return the array values ​​multiplied by 2.
-     * @param {number} array
-     * @returns {number} Return the array values ​​multiplied by 2.
-     */
-    function multiplyByTwo($array)
-    {
-        $arrayVal = [];
-        foreach ($array as $number) {
-            $arrayVal[] = $number * 2;
-        }
-        return $arrayVal;
-    }
-    /**
-     * Takes an array of integers and an integer as parameters. Return the array values ​​divided by the second parameter
-     * @param {number} array
-     * @returns {number} Return the array values ​​divided by the second parameter
-     */
-    function divideArrayBy($array, $divider)
-    {
-        $divide = [];
-        foreach ($array as $value) {
-            $divide[] = $value / $divider;
-        }
-        return $divide;
-    }
-    /**
-     * Takes 2 arrays as parameters and returns an array representing the intersection of the 2
-     * @param {number} array
-     * @returns {number} Return  the array without duplicates
-     */
-    function noDuplicate($array)
-    {
-        return array_unique($array);
-    }
-    /**
-     * Takes 2 arrays as parameters and returns an array representing the intersection of the 2
-     * @param {number} array1 array2
-     * @returns {number} Return an array representing the intersection of the 2
-     */
-    function intersectionArray($array1, $array2)
-    {
-        return array_intersect($array1, $array2);
-    }
-    /**
-     * Takes 2 arrays as parameters and returns an array of values ​​from the first array that are not in the second
-     * @param {number} array1 array2
-     * @returns {number} Return an array of values ​​from the first array that are not in the second
-     */
-    function notInSecArray($array1, $array2)
-    {
-        return array_diff($array1, $array2);
-    }
-    /**
-     * Declare a function that takes an array and an integer as parameters
-     * @param {number} array1 n
-     * @returns {number}  Returns the first n elements of the array.
-     */
-    function getFirstElements($array, $n)
-    {
-        return array_slice($array, 0, $n);
+        return $arrayResult;
     }
 
+    /**
+     * Get array values and divide by divider
+     *
+     * @param array $array the array you want to divide values from
+     * @param int $divider the divider
+     * @return array new array with divided values
+     */
+    function divideArrayValues(array $array, int $divider = 2): array
+    {
+        $arrayResult = [];
+        foreach ($array as $value) {
+            if (is_int($value)) {
+                $arrayResult[] = $value / $divider;
+            }
+        }
+        return $arrayResult;
+    }
+    /**
+     * Excludes duplicates of an array
+     *
+     * @param array $array - array of integers or strings
+     * @return array - array without duplicates
+     */
+    function excludeDuplicates(array $array): array
+    {
+        // return array_unique($array, SORT_REGULAR);
+        $result = [];
+        foreach ($array as $key => $value) {
+            if (!in_array($value, $result)) {
+                $result[$key] = $value;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * get intersection between two arrays.
+     * @param array $array an array.
+     * @param array $arrayA an array.
+     * @return array the intersection array.
+     */
+    function getIntersection(array $array, array $arrayA): array
+    {
+        // return array_intersect($array, $arrayA);
+        $result = [];
+        foreach ($array as $key => $value) {
+            if (in_array($value, $arrayA)) {
+                $result[$key] = $value;
+            }
+        }
+        return $result;
+    }
+    /*
+     * Get values from the first array different from second array
+     *
+     * @param array $array1 the array you want the values from
+     * @param array $array2 the array to compare
+     * @param boolean $unique - if true, removes duplicates
+     * @return array Array containing first array values that are different from the second one.
+     */
+    function getArrayDiff(array $array1, array $array2, bool $unique = false): array
+    {
+        // return array_diff($array1, $array2);
+    
+        $newArray = array_filter($array1, fn($v) => !in_array($v, $array2));
+
+        if ($unique)
+            return excludeDuplicates($newArray);
+
+        return $newArray;
+    }
+
+    /**
+     * Get the first $nb values from the given array.
+     *
+     * @param array $array the array
+     * @param integer $nb the number of values to extract
+     * @return array an array with $nb values. Or the given array if $nb is bigger than the array length. 
+     */
+    function getFirstElements(array $array, int $nb): array
+    {
+        // return array_slice($array, 0, $nb, true);
+    
+        $newArray = [];
+        // foreach ($array as $key => $value) {
+        //     if (count($newArray) >= $nb) break;
+    
+        //     $newArray[$key] = $value;
+        // }
+    
+        while (count($newArray) < $nb && count($array) > 0) {
+            $newArray[] = array_shift($array);
+        }
+
+        return $newArray;
+    }
+
+
+    /**
+     * get the platform from the series data.
+     *
+     * @param array $seriesData the array entry
+     * @return array the list of platform
+     */
+    function getPlatformsFromSeries(array $seriesData): array
+    {
+        $platforms = [];
+
+        foreach ($seriesData as $show) {
+            $platforms[] = $show["availableOn"];
+        }
+
+        $platforms = excludeDuplicates($platforms);
+        sort($platforms);
+
+        return $platforms;
+    }
+
+    /**
+ * Generate and return HTML code to display the show with the details in parameter.
+ *
+ * @param array $show An array containing show details
+ * @return string HTML code to display the show
+ */
+function generateShow(array $show): string
+{
+    return '<li>'
+    . '<a href="exo5.php?serie=' . $show['id'] . '#question4">'
+    . '<h3>' . $show['name'] . '</h3>' 
+    ."<img src='" . $show['image'] . "' alt='" . $show['id'] . "' /></a></li>";
+}
     ?>
 
 </body>

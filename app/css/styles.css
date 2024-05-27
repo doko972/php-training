@@ -1,0 +1,28 @@
+
+.container-series{
+    display: flex;
+    /* flex-direction: column; */
+    flex-flow: wrap;
+    gap: 1rem;
+}
+.container-series li{
+width: calc(25% - 1rem);
+aspect-ratio: 1/2;
+list-style: none;
+text-align: center;
+}
+.container-series img{
+    max-width: 100%;
+}
+.container-series img:hover,
+.container-series img:focus
+{
+    transition: transform .5s;
+    transform: scale(1.2);
+}
+.container-series h2{
+    font-size: 1rem;
+}
+
+
+

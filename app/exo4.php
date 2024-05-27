@@ -1,3 +1,4 @@
+<?php include './includes/_functions.php'; ?>
 <?php
 
 $array = [12, 65, 95, 41, 85, 63, 71, 64];
@@ -15,7 +16,6 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/global.css">
     <title>Introduction PHP - Exo 4</title>
-    <?php include 'includes/_functions.php'; ?>
 </head>
 
 <body class="dark-template">
@@ -50,7 +50,7 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
             </div>
         </section>
 
-        QUESTION 2
+        <!-- QUESTION 2 -->
         <section class="exercice">
             <h2 class="exercice-ttl">Question 2</h2>
             <p class="exercice-txt">Déclarer une fonction qui prend en paramètre un tableau d'entiers et retourne
@@ -58,8 +58,8 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
             <div class="exercice-sandbox">
                 <?php
 
-                $evenValue = arrayValue($array);
-                var_dump($evenValue);
+                echo getArrayAsHTMLList2(getEvenValues($arrayB));
+
                 ?>
             </div>
         </section>
@@ -71,8 +71,7 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
                 uniquement les entiers d'index pair</p>
             <div class="exercice-sandbox">
                 <?php
-                /////////////???????????????????????????????????
-                //Pas compris//
+                var_dump(getValueEvenIndex($arrayA));
                 ?>
             </div>
         </section>
@@ -85,7 +84,7 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
             <div class="exercice-sandbox">
                 <?php
 
-                $multipliedNumbers = multiplyByTwo($array);
+                $multipliedNumbers = excludeDuplicates($array);
                 var_dump($multipliedNumbers);
                 ?>
             </div>
@@ -101,7 +100,7 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
 
                 $arrayToDivide = [2, 10, 20, 30, 50];
                 $divider = 2;
-                $divideNumbers = divideArrayBy($arrayToDivide, $divider);
+                $divideNumbers = divideArrayValues($arrayToDivide, $divider);
                 var_dump($divideNumbers);
                 ?>
 
@@ -115,10 +114,7 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
                 caractères et retourne le tableau sans doublons</p>
             <div class="exercice-sandbox">
                 <?php
-
-
-                $noDuplicate = noDuplicate($arrayA);
-                var_dump($noDuplicate);
+                var_dump(getArrayAsHtmlList($arrayA));
                 ?>
             </div>
         </section>
@@ -130,9 +126,7 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
                 représentant l'intersection des 2</p>
             <div class="exercice-sandbox">
                 <?php
-
-                $newArray = intersectionArray($arrayA, $arrayB);
-                var_dump($newArray);
+                // var_dump(getIntersection($array, $arrayA));
                 ?>
             </div>
         </section>
@@ -145,7 +139,7 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
             <div class="exercice-sandbox">
                 <?php
 
-                $newArray = notInSecArray($arrayA, $arrayB);
+                $newArray = getArrayDiff($arrayA, $arrayB);
                 var_dump($newArray);
                 ?>
             </div>
@@ -159,7 +153,7 @@ $arrayB = [85, "toi", 95, "la", 65, 94, 85, "avec", 37, "chat"];
                 celui-ci est à true, le tableau retourné sera sans doublons</p>
             <div class="exercice-sandbox">
                 <?php
-                //???????????????????//
+                // var_dump(getArrayDiff($array, $arrayB));
                 ?>
             </div>
         </section>

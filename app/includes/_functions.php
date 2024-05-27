@@ -206,35 +206,76 @@
         return $platforms;
     }
 
+
     /**
      * Generate and return HTML code to display the show with the details in parameter.
      *
      * @param array $show An array containing show details
+     * @param bool $full Display all show details if true, default false
      * @return string HTML code to display the show
      */
-    function generateShow(array $show): string
+    function generateShow(array $show, bool $full = false): string
     {
-        return '<li>'
-            . '<a href="exo5.php?serie=' . $show['id'] . '#question4">'
-            . '<h3>' . $show['name'] . '</h3>'
-            . "<img src='" . $show['image'] . "' alt='" . $show['id'] . "' /></a></li>";
-    }
-/**
- * Get show informations from its ID.
- *
- * @param array $dataSeries The array containing series data.
- * @param integer $id Show's ID you want the information of.
- * @return array|null Show informations or null if no ID found.
- */
-function getShowInformationsFromId(array $dataSeries, int $id = 1): ?array
-{
-    foreach ($dataSeries as $show) {
-        if ($show['id'] === $id) {
-            return $show;
+        if ($full) {
+            return '<h3 class="series__ttl">' . $show['name'] . '</h3>'
+                . '<img class="series__img" src="' . $show['image'] . '" alt="' . $show['name'] . '">'
+                . '<h4>Acteurs</h4>'
+                . getArrayAsHTMLList($show['actors']);
         }
+        return '<a href="exo5.php?serie=' . $show['id'] . '#question4">'
+            . '<h3 class="series__ttl">' . $show['name'] . '</h3>'
+            . '<img class="series__img" src="' . $show['image'] . '" alt="' . $show['name'] . '">'
+            . '</a>';
     }
-    return null;
-}
+
+
+
+    /**
+     * Get show informations from its ID.
+     *
+     * @param array $dataSeries The array containing series data.
+     * @param integer $id Show's ID you want the information of.
+     * @return array|null Show informations or null if no ID found.
+     */
+    function getShowInformationsFromId(array $dataSeries, int $id): ?array
+    {
+        // foreach ($dataSeries as $show) {
+        //     if ($show['id'] === $id) {
+        //         return $show;
+        //     }
+        // }
+        // return null;
+    
+        $result = array_filter($dataSeries, fn($s) => $s['id'] === $id);
+
+        if (count($result) !== 1)
+            return null;
+
+        return array_values($result)[0];
+    }
+
+    function getPlatformsFromStyles(array $stylesData): array
+    {
+        $styles = [];
+        foreach ($stylesData as $show) {
+            $styles[] = $show["styles"];
+        }
+
+        sort($styles);
+        return excludeDuplicates($styles);
+    }
+    function getSeriesFromStyles(array $stylesData): ?array
+    {
+        $styles = array();
+        foreach ($stylesData as $serie) {
+            foreach ($serie['styles'] as $style) {
+                $styles[] = $style;
+            }
+        }
+        $styles = array_unique($styles);
+        sort($styles);
+        return $styles;
+    }
 
     ?>
 

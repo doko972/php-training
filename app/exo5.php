@@ -110,7 +110,15 @@ try {
                     <ul>
                         <?php
                         if (isset($_GET['serie'])) {
-                            var_dump(getShowInformationsFromId($series, intval($_GET['serie'])));
+                            $seriesData = getShowInformationsFromId($series, $_GET['serie']);
+
+                            if (is_null($seriesData)) {
+                                echo '<p>La série sélectionnée n\'existe pas.</p>';
+                            } else {
+                                echo generateShow($seriesData, true);
+                            }
+                        } else {
+                            echo '<p>Aucune série sélectionnée.</p>';
                         }
                         ?>
                     </ul>
@@ -125,21 +133,8 @@ try {
                 <div class="exercice-sandbox">
                     <ul>
                         <?php
-                        $styles = array();
-
-                        foreach ($series as $serie) {
-                            foreach ($serie['styles'] as $style) {
-                                $styles[] = $style;
-                            }
-                        }
-
-                        $styles = array_unique($styles);
-
-                        sort($styles);
-
-                        foreach ($styles as $style) {
-                            echo "<li>" . $style . "</li>";
-                        }
+                        $seriesFromStyles = getSeriesFromStyles($series);
+                        echo getArrayAsHTMLList($seriesFromStyles);
                         ?>
                     </ul>
 
